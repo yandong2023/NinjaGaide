@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Gaiden - NES</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: white;
+        }
+        
+        #game-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        #game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .controls {
+            margin-top: 20px;
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <iframe 
+            id="game-frame"
+            src="https://nesbox.net/games/ninja-gaiden"
+            allowfullscreen
+            allow="fullscreen; autoplay; gamepad"
+            importance="high"
+            loading="eager">
+        </iframe>
+    </div>
+    <div class="controls">
+        <p>方向键：移动 | Z：A键 | X：B键 | Enter：开始 | Tab：选择</p>
+    </div>
+</body>
+</html>

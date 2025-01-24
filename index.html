@@ -25,15 +25,21 @@
         .game-iframe-container {
             position: relative;
             overflow: hidden;
-            height: 700px;
+            height: 600px;  
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+            background: #000;
         }
         .game-iframe-container iframe {
             position: absolute;
-            top: -60px;
-            left: 0;
-            width: 100%;
-            height: calc(100% + 60px);
+            top: -140px;     
+            left: -205px;    
+            width: 1024px;   
+            height: 900px;   
             border: none;
+            transform: scale(0.95);
+            transform-origin: top left;
         }
     </style>
     <script>
@@ -99,7 +105,7 @@
                 <div class="game-card bg-gray-900 rounded-xl overflow-hidden">
                     <div class="game-iframe-container bg-gray-800">
                         <iframe 
-                            src="https://freebie.games/games/ninja-gaiden-sega-master-system/play/?embed=true" 
+                            src="https://www.retrogames.cz/play_149-NES.php" 
                             frameborder="0" 
                             scrolling="no"
                             sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
