@@ -144,7 +144,13 @@ window.__tcfapi = function(command, version, callback) {
 };
 
 // 创建一个虚拟的定位器iframe
-const locatorFrame = document.createElement('iframe');
-locatorFrame.style.display = 'none';
-locatorFrame.name = '__tcfapiLocator';
-document.body.appendChild(locatorFrame);
+try {
+    const locatorFrame = document.createElement('iframe');
+    if (locatorFrame) {
+        locatorFrame.style.display = 'none';
+        locatorFrame.name = '__tcfapiLocator';
+        document.body.appendChild(locatorFrame);
+    }
+} catch (error) {
+    console.log('Failed to create locator frame:', error);
+}

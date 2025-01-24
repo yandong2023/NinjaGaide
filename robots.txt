@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 # Sitemap
-Sitemap: https://ninjagaide.com/sitemap.xml
+Sitemap: https://ninjagaiden.co/sitemap.xml
