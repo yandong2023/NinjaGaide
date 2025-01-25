@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ninja Gaiden - Classic Adventure</title>
+    <title>Ninja Gaiden - Classic Adventure Including Ninja Gaiden 2 Black</title>
+    <meta name="description" content="Experience the legendary Ninja Gaiden series, featuring the iconic Ninja Gaiden 2 Black. Join the ultimate ninja adventure with enhanced gameplay and classic challenges.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,13 +34,50 @@
         }
         .game-iframe-container iframe {
             position: absolute;
-            top: -140px;     
+            top: -150px;     
             left: -205px;    
             width: 1024px;   
             height: 900px;   
             border: none;
             transform: scale(0.95);
             transform-origin: top left;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .game-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        .game-iframe-container.loaded .game-loading {
+            opacity: 0;
+            pointer-events: none;  
+        }
+        .game-iframe-container.loaded iframe {
+            opacity: 1;
+        }
+        .game-loading-text {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .game-loading-bar {
+            width: 200px;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .game-loading-progress {
+            width: 0%;
+            height: 100%;
+            background: #6d28d9;
+            transition: width 0.3s ease;
         }
     </style>
     <script>
@@ -53,7 +91,45 @@
                     });
                 });
             });
+
+            // 处理游戏加载
+            const gameContainer = document.querySelector('.game-iframe-container');
+            const gameIframe = gameContainer.querySelector('iframe');
+            const loadingBar = document.querySelector('.game-loading-progress');
+            let progress = 0;
+
+            // 模拟加载进度
+            const loadingInterval = setInterval(() => {
+                progress += 2;
+                if (progress <= 90) {
+                    loadingBar.style.width = progress + '%';
+                }
+            }, 100);
+
+            // 当iframe加载完成时
+            gameIframe.addEventListener('load', () => {
+                clearInterval(loadingInterval);
+                loadingBar.style.width = '100%';
+                setTimeout(() => {
+                    gameContainer.classList.add('loaded');
+                }, 500);
+            });
+
+            // 如果30秒后还没加载完成，显示重新加载按钮
+            setTimeout(() => {
+                if (!gameContainer.classList.contains('loaded')) {
+                    document.querySelector('.text-red-500').style.display = 'block';
+                }
+            }, 30000);
         });
+
+        // 重新加载游戏函数
+        function reloadGame() {
+            const gameIframe = document.querySelector('.game-iframe-container iframe');
+            const container = document.querySelector('.game-iframe-container');
+            container.classList.remove('loaded');
+            gameIframe.src = gameIframe.src;
+        }
     </script>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-N3XKT48117"></script>
@@ -70,10 +146,12 @@
     <header class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-purple-900/50">
         <nav class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold text-purple-500 neon-text">Ninja Gaiden</div>
+                <a href="./" class="text-2xl font-bold text-purple-500">NinjaGaiden</a>
                 <div class="hidden md:flex space-x-8">
                     <a href="#games" class="hover:text-purple-400 transition">Game</a>
                     <a href="#features" class="hover:text-purple-400 transition">Features</a>
+                    <a href="./blog/index.html" class="hover:text-purple-400">Blog</a>
+                    <a href="./faq.html" class="hover:text-purple-400">FAQ</a>
                 </div>
                 <button class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-full transition">Play Now</button>
             </div>
@@ -88,7 +166,7 @@
                 <span class="text-purple-500">Classic Adventure</span>
             </h1>
             <p class="text-xl md:text-2xl mb-12 text-gray-400">
-                Experience the legendary Ninja Gaiden game that started it all
+                Experience the legendary Ninja Gaiden series, including the enhanced Ninja Gaiden 2 Black edition
             </p>
             <div class="flex justify-center gap-6">
                 <button class="start-playing-btn bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-full text-lg transition">
@@ -103,18 +181,19 @@
         <div class="container mx-auto">
             <div class="max-w-4xl mx-auto">
                 <div class="game-card bg-gray-900 rounded-xl overflow-hidden">
-                    <div class="game-iframe-container bg-gray-800">
-                        <iframe 
-                            src="https://www.retrogames.cz/play_149-NES.php" 
-                            frameborder="0" 
-                            scrolling="no"
-                            sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-                            allowfullscreen>
+                    <div class="game-iframe-container">
+                        <div class="game-loading">
+                            <div class="game-loading-text">Loading Game...</div>
+                            <div class="game-loading-bar">
+                                <div class="game-loading-progress"></div>
+                            </div>
+                        </div>
+                        <iframe src="https://www.retrogames.cz/play_149-NES.php" frameborder="0" scrolling="no" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" allowfullscreen="">
                         </iframe>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Ninja Gaiden - Sega Master System</h3>
-                        <p class="text-gray-400">Join Ryu Hayabusa in his epic quest for revenge in this classic action-platformer that defined a generation of gaming.</p>
+                    <div class="p-6 text-center">
+                        <p class="text-red-500 mb-4" style="display: none;">reloadGame</p>
+                        <button onclick="reloadGame()" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-full transition">reload game</button>
                     </div>
                 </div>
             </div>
@@ -185,6 +264,8 @@
                     <ul class="space-y-2 text-gray-400">
                         <li><a href="#games" class="hover:text-purple-400">Game</a></li>
                         <li><a href="#features" class="hover:text-purple-400">Features</a></li>
+                        <li><a href="./blog/index.html" class="hover:text-purple-400">Blog</a></li>
+                        <li><a href="./faq.html" class="hover:text-purple-400">FAQ</a></li>
                     </ul>
                 </div>
                 <div>
